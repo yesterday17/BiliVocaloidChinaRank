@@ -51,7 +51,7 @@ function getScore(text) {
 }
 
 function getScoreById(av) {
-    var remoteUrl = "http://api.bilibili.com/x/stat?aid=" + av + "&jsonp=jsonp";
+    var remoteUrl = "https://api.bilibili.com/x/stat?aid=" + av + "&jsonp=jsonp";
 
     $.ajax({
         async: false,
