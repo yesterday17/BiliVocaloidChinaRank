@@ -8,7 +8,7 @@ function xiuZhengA(playingScore, collect, danmaku, comment) {
 }
 
 function xiuZhengB(collect, play) {
-    var ans = collect / play * 450;
+    var ans = collect / play * 250;
 
     if (ans > 50) return 50;
     else return ans.toFixed(2);
@@ -39,19 +39,21 @@ function getScore(text) {
 
     try {
         var obj = JSON.parse(text);
-        var play = obj.data.out_play + obj.data.in_play;
-        var collect = obj.data.fav;
+        var play = obj.data.view;
+        var collect = obj.data.favorite;
         var comment = obj.data.reply;
-        var danmaku = obj.data.dm;
+        var danmaku = obj.data.danmaku;
         var p = 1;
         return score(play, p, collect, danmaku, comment);
     } catch (e) {
+        alert(e);
         alertError();
+        return 0;
     }
 }
 
 function getScoreById(av) {
-    var remoteUrl = "https://api.bilibili.com/x/stat?aid=" + av + "&jsonp=jsonp";
+    var remoteUrl = "http://api.bilibili.com/archive_stat/stat?aid=" + av + "&type=jsonp" + "&_=" + Date.now();
 
     $.ajax({
         async: false,
@@ -74,6 +76,9 @@ function getScoreById(av) {
 function submitAV() {
     var id = document.getElementById("doc-ipt-3").value;
     //alert(id);
+
+    if(id == "") id=5294543;
+
     getScoreById(id);
 }
 
